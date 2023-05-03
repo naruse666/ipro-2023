@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         include:
-          #- root_module: 
+          - root_module: terraform/env/vpc
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -73,7 +73,7 @@ jobs:
     strategy:
       matrix:
         include:
-          #- root_module: 
+          - root_module: terraform/env/vpc
     steps:
       - uses: actions/checkout@v3
       - name: tfsec

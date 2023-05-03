@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         include:
-          #- root_module: 
+          - root_module: terraform/env/vpc
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -65,19 +65,3 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
-  
-  tfsec:
-    name: tfsec
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          #- root_module: 
-    steps:
-      - uses: actions/checkout@v3
-      - name: tfsec
-        uses: aquasecurity/tfsec-action@v1.0.3
-        with:
-          working_directory: ${{ matrix.root_module }}
-          soft_fail: true # dont break build
-
