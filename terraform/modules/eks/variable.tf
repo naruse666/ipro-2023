@@ -8,14 +8,14 @@ variable "k8s_version" {
 
 variable "vpc_id" {
   type = string
-  }
+}
 
 variable "subnet_ids" {
-  type = list
+  type = list(any)
 }
 
 variable "security_group_ids" {
-  type = list
+  type = list(any)
 }
 
 variable "kms_key_arn" {

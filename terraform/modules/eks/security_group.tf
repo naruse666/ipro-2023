@@ -1,6 +1,6 @@
 resource "aws_security_group" "cluster_shared" {
-  name        = "${var.cluster-name}-cluster-shared"
-  vpc_id      = var.vpc_id
+  name   = "${var.cluster-name}-cluster-shared"
+  vpc_id = var.vpc_id
 
   tags = {
     Name = "${var.cluster-name}-cluster-shared"
