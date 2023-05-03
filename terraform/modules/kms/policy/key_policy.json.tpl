@@ -3,7 +3,9 @@
       {
         Action = "${action}"
         Effect = "Allow"
-        Principal = ${principal_map}
+        Principal = {
+          "AWS" = ${principal}"
+          }
 
         Resource = "${resource}"
         Sid      = "${sid}"
