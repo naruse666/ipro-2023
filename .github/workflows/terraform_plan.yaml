@@ -32,7 +32,7 @@ jobs:
           terraform_version: 1.4.6
       - name: Terraform Init
         id: init
-        run: terragrunt init
+        run: terraform init
         working-directory: ${{ matrix.root_module }}
       - name: Terraform Validate
         id: validate
@@ -40,7 +40,7 @@ jobs:
         working-directory: ${{ matrix.root_module }}
       - name: Terraform Plan
         id: plan
-        run: terragrunt plan -no-color
+        run: terraform plan -no-color
         continue-on-error: true
         working-directory: ${{ matrix.root_module }}
       - uses: actions/github-script@v6
