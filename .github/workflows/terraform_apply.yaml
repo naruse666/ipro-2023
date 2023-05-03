@@ -17,6 +17,7 @@ jobs:
       matrix:
         include:
           - root_module: terraform/env/vpc
+          - root_module: terraform/env/eks
     steps:
       - name: checkout
         uses: actions/checkout@v3
