@@ -14,6 +14,7 @@ module "eks" {
 }
 
 module "cluster_encription_key" {
+  source = "../../modules/kms"
   sid                  = "EKS Cluster Encription Key"
   key_policy_action    = "kms:*"
   key_policy_resource  = "*"
