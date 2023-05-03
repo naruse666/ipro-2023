@@ -1,4 +1,4 @@
-name: terraform by OIDC
+name: Terraform Destroy
 on: workflow_dispatch
 permissions:
   id-token: write
