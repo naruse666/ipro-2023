@@ -1,6 +1,6 @@
 resource "aws_eks_cluster" "cluster" {
   name     = var.cluster-name
-  version  = var.version
+  version  = var.k8s_version
   role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
@@ -14,7 +14,7 @@ resource "aws_eks_cluster" "cluster" {
     provider {
       key_arn = var.kms_key_arn
     }
-    resources = "secrets"
+    resources = ["secrets"]
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.

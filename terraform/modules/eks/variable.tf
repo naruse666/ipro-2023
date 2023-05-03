@@ -1,19 +1,23 @@
 variable "cluster-name" {
-  type = String
+  type = string
 }
 
-variable "version" {
-  type = String
+variable "k8s_version" {
+  type = string
 }
+
+variable "vpc_id" {
+  type = string
+  }
 
 variable "subnet_ids" {
-  type = List
+  type = list
 }
 
 variable "security_group_ids" {
-  type = List
+  type = list
 }
 
 variable "kms_key_arn" {
-  type = String
+  type = string
 }
