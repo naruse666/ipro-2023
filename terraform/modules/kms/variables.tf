@@ -11,5 +11,5 @@ variable "key_policy_resource" {
 }
 
 variable "key_policy_principal" {
-  type = map(any)
+  type = string
 }

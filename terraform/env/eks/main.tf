@@ -14,9 +14,9 @@ module "eks" {
 }
 
 module "cluster_encription_key" {
-  source = "../../modules/kms"
+  source               = "../../modules/kms"
   sid                  = "EKS Cluster Encription Key"
   key_policy_action    = "kms:*"
   key_policy_resource  = "*"
-  key_policy_principal = aws_caller_identity.current.arn
+  key_policy_principal = data.aws_caller_identity.current.arn
 }
