@@ -1,4 +1,4 @@
-name: terraform by OIDC
+name: Terraform Apply
 on:
   pull_request:
     types:
