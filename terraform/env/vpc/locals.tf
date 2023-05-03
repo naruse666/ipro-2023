@@ -1,6 +1,6 @@
 locals {
   module_version = "4.0.1"
-  name    = "ipro-2023-vpc"
+  name           = "ipro-2023-vpc"
 
   cidr = "10.0.0.0/16"
 

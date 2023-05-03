@@ -26,15 +26,11 @@ jobs:
           terraform_version: 1.4.6
       - name: Terraform Init
         id: init
-        run: terraform init
-        working-directory: ${{ matrix.root_module }}
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
+        run: terragrunt init
         working-directory: ${{ matrix.root_module }}
       - name: Terraform Destroy
         id: destroy
-        run: terraform destroy -no-color -auto-approve
+        run: terragrunt destroy -no-color -auto-approve
         continue-on-error: true
         working-directory: ${{ matrix.root_module }}
       - uses: actions/github-script@v6
