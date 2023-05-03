@@ -34,26 +34,3 @@ jobs:
         run: terraform destroy -no-color -auto-approve
         continue-on-error: true
         working-directory: ${{ matrix.root_module }}
-      - uses: actions/github-script@v6
-        env:
-          DESTROY: "terraform\n${{ steps.destroy.outputs.stdout }}"
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `## Target env: ${{ matrix.root_module }}
-            #### Terraform Init \`${{ steps.init.outcome }}\`
-            #### Terraform Validate \`${{ steps.validate.outcome }}\`
-            #### Terraform Destroy \`${{ steps.destroy.outcome }}\`
-
-            <details><summary>Show Destroy</summary>
-
-            \`\`\`${process.env.DESTROY}\`\`\`
-
-            </details>`
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
