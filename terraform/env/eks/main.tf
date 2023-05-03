@@ -10,7 +10,7 @@ module "eks" {
 
   security_group_ids = []
 
-  kms_key_arn = ""
+  kms_key_arn = module.cluster_encription_key.key.arn
 }
 
 module "cluster_encription_key" {
