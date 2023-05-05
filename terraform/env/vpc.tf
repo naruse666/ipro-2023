@@ -1,7 +1,7 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = local.name
+  name = "${local.name}-vpc"
 
   cidr = local.cidr
 
@@ -16,6 +16,7 @@ module "vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 
+  # for k8s
   private_subnet_tags = {
     "kubernetes.io/role/internal-elb" = "1"
   }
