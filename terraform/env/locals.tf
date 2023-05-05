@@ -1,6 +1,10 @@
 locals {
-  name = "ipro-2023-vpc"
+  name = "ipro-2023"
 
+  # k8s
+  k8s_version = "1.25"
+
+  # vpc configs
   cidr = "10.0.0.0/16"
 
   azs             = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
