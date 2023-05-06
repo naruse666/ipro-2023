@@ -9,7 +9,7 @@ updates:
       - "naruse666"
   # Terraform
   - package-ecosystem: "terraform"
-    directory: "/"
+    directory: "terraform/env"
     schedule:
       interval: "weekly"
     reviewers:
