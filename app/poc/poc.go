@@ -89,9 +89,9 @@ func main() {
 	router.GET("/home", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "home.tmpl", gin.H{
 			"title": "Main website",
-			"time": sample.Time[:4],
+			"time":  sample.Time[:4],
 			"value": sample.V,
-			"unit": sample.Unit,
+			"unit":  sample.Unit,
 		})
 	})
 	router.Run(":8080")
