@@ -1,0 +1,14 @@
+version: "3.9"
+services: 
+  app:
+    build: .
+    ports: 
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ~/.aws/:/root/.aws:ro
+networks:
+  app:
+    name: app_network
+    driver: bridge
