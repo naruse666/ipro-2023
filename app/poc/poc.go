@@ -1,16 +1,12 @@
 package main
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/ssm"
 	"github.com/gin-gonic/gin"
 )
 
@@ -34,17 +30,7 @@ func main() {
 		env = "dev"
 	}
 
-	// set appid
-	var appId string
-	if env == "prod" {
-		param, err := getSSMParameter("e-stat-appId")
-		if err != nil {
-			panic(err)
-		}
-		appId = param
-	} else {
-		appId = os.Getenv("ESTATAPPID")
-	}
+	appId := os.Getenv("ESTATAPPID")
 
 	//request モジュール書く
 	// "https://api.e-stat.go.jp/rest/<バージョン>/app/json/getStatsData?<パラメータ群>"
@@ -95,28 +81,4 @@ func main() {
 		})
 	})
 	router.Run(":8080")
-}
-
-func getSSMParameter(paramKey string) (string, error) {
-	cfg, err := config.LoadDefaultConfig(context.TODO(),
-		config.WithRegion("ap-northeast-1"),
-	)
-
-	if err != nil {
-		errMsg := fmt.Errorf("unable to load SDK config, %v", err)
-		return "", errMsg
-	}
-
-	svc := ssm.NewFromConfig(cfg)
-
-	// get with decryption
-	res, err := svc.GetParameter(context.TODO(), &ssm.GetParameterInput{
-		Name:           aws.String(paramKey),
-		WithDecryption: aws.Bool(true),
-	})
-
-	if err != nil {
-		panic(err)
-	}
-	return *res.Parameter.Value, nil
 }
