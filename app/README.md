@@ -16,4 +16,10 @@
 - [提供データ一覧](https://www.e-stat.go.jp/stat-search/database?page=1)
 - [マイページ](https://www.e-stat.go.jp/mypage/view/api)から`URL`を変更して利用するドメインを指定。開発用に`http://test.localhost/`が提供されている
 
+## APIドキュメント
+- [e-statの機能概要](https://www.e-stat.go.jp/api/api-info)
+- [e-stat swagger](https://api.e-stat.go.jp/swagger-ui/e-statapi3.0.html#/)
+- [e-stat mypage (appIdとかが置いてある)](https://www.e-stat.go.jp/mypage/view/api)
+- [e-stat database 検索ページ](https://www.e-stat.go.jp/stat-search/database)
+
 # 構成
