@@ -11,7 +11,7 @@ import (
 	"os"
 
 	"google.golang.org/grpc"
-	pb "github.com/naruse666/ipro-2023/app/api_server/proto"
+	pb "github.com/naruse666/ipro-2023/app/api_server/grpc"
 )
 
 type Stat struct {

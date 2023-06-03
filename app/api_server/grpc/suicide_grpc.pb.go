@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.21.12
-// source: suicide.proto
+// source: proto/suicide.proto
 
-package __
+package grpc
 
 import (
 	context "context"
@@ -47,21 +47,19 @@ func (c *suicideServiceClient) SuicideRequest(ctx context.Context, in *Request, 
 }
 
 // SuicideServiceServer is the server API for SuicideService service.
-// All implementations must embed UnimplementedSuicideServiceServer
+// All implementations should embed UnimplementedSuicideServiceServer
 // for forward compatibility
 type SuicideServiceServer interface {
 	SuicideRequest(context.Context, *Request) (*Response, error)
-	mustEmbedUnimplementedSuicideServiceServer()
 }
 
-// UnimplementedSuicideServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedSuicideServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedSuicideServiceServer struct {
 }
 
 func (UnimplementedSuicideServiceServer) SuicideRequest(context.Context, *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SuicideRequest not implemented")
 }
-func (UnimplementedSuicideServiceServer) mustEmbedUnimplementedSuicideServiceServer() {}
 
 // UnsafeSuicideServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to SuicideServiceServer will
@@ -105,5 +103,5 @@ var SuicideService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "suicide.proto",
+	Metadata: "proto/suicide.proto",
 }
