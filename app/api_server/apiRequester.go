@@ -63,8 +63,8 @@ func main() {
 	}
 
 
-	func (s *server) suiciderequest(ctx context.context, in *pb.request) (*pb.response, error){
-		return &pb.response{
+	func (s *server) SuicideRequest(ctx context.context, in *pb.Request) (*pb.Response, error){
+		return &pb.Response{
 			suicide: "12345",
 		}, nil
 	}

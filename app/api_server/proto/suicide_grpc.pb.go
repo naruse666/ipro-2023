@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.21.12
-// source: proto/suicide.proto
+// source: suicide.proto
 
-package grpc
+package __
 
 import (
 	context "context"
@@ -105,5 +105,5 @@ var SuicideService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/suicide.proto",
+	Metadata: "suicide.proto",
 }
