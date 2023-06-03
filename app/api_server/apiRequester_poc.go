@@ -3,16 +3,21 @@
 package main
 
 import (
-  //"errors"
+	"context"
 	"encoding/json"
+	//"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
+	"net"
 	"net/http"
 	"os"
 
-	"google.golang.org/grpc"
 	pb "github.com/naruse666/ipro-2023/app/api_server/grpc"
+	"google.golang.org/grpc"
 )
+
+var result interface{}
 
 type Stat struct {
 	GetStatsData struct {
@@ -28,7 +33,11 @@ type Stat struct {
 	} `json:"GET_STATS_DATA"`
 }
 
-//func ApiRequester() {
+type server struct {
+	pb.UnimplementedSuicideServiceServer
+}
+
+// func ApiRequester() {
 func main() {
 
 	appId := os.Getenv("ESTATAPPID")
@@ -57,26 +66,22 @@ func main() {
 	if err := json.Unmarshal(body, &data); err != nil {
 		fmt.Println(err)
 	}
+	// メモリでデータを共有(ごめんなさい)
+	result = data.GetStatsData.StatisticalData.DataInf.Value[0].V
+	fmt.Println(result)
 
-	type server struct {
-		pb.unimplementedsuicideserviceserver 
+	lis, err := net.Listen("tcp", ":8010")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
 	}
+	s := grpc.NewServer()
+	pb.RegisterSuicideServiceServer(s, &server{})
+	s.Serve(lis)
+}
 
-
-	func (s *server) SuicideRequest(ctx context.context, in *pb.Request) (*pb.Response, error){
-		return &pb.Response{
-			suicide: "12345",
-		}, nil
+func (s *server) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Response, error) {
+	result := &pb.Suicide{
+		Latest: result.(string),
 	}
-
-	s:= grpc.newserver()
-	pb.registersuicideserviceserver(s, &server{})
-//	sample := data.getstatsdata.statisticaldata.datainf.value[0]
-
-  router := gin.default()
-  router.GET("/api", func(c *gin.Context) {
-  	//c.JSON(http.StatusOK, data)
-  	server
-  })
-  router.Run(":8010")
+	return &pb.Response{Suicide: result}, nil
 }
