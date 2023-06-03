@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/naruse666/ipro-2023/app/api_server/grpc";
+option go_package = "./grpc";
 
 package main;
 

@@ -1,4 +1,4 @@
-module api
+module github.com/naruse666/ipro-2023/app/api_server
 
 go 1.20
 
