@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "github.com/naruse666/ipro-2023/app/api_server/grpc";
+
+package main;
+
+service SuicideService {
+  rpc SuicideRequest (Request) returns (Response);
+}
+
+message Request {
+  string request = 1;
+  }
+
+message Response {
+  Suicide suicide = 1;
+  }
+
+message Suicide {
+  string latest = 1;
+  }
