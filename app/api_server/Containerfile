@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+FROM golang:1.20.4
+
+RUN groupadd -r app \
+  && useradd -r -g app -d /app app
+RUN mkdir /app && chown app:app /app
+WORKDIR /app
+USER app
+
+ENV GO_ENV=dev
+
+COPY go.sum go.mod ./
+
+RUN go mod download
+RUN go get -u google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0
+RUN go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
+RUN go get -u google.golang.org/grpc@v1.55.0
+RUN export PATH="$PATH:$(go env GOPATH)/bin"
+
+COPY . ./
+
+RUN go build -o /app/ipro_api
+
+EXPOSE 8010
+
+CMD [ "/app/ipro_api" ]
