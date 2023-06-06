@@ -5,7 +5,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	//"errors"
+
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -37,7 +37,6 @@ type server struct {
 	pb.UnimplementedSuicideServiceServer
 }
 
-// func ApiRequester() {
 func main() {
 
 	appId := os.Getenv("ESTATAPPID")
@@ -48,11 +47,14 @@ func main() {
 	url := "http://api.e-stat.go.jp/rest/3.0/app/json/getStatsData?appId=" + appId + params
 
 	resp, err := client.Get(url)
+	// エラー処理
 
 	req, err := http.NewRequest("GET", url, nil)
+	// エラー処理
 	req.Header.Set("accept", "application/json")
 
 	resp, err = client.Do(req)
+	// エラー処理
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
