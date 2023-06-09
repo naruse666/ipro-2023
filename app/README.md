@@ -23,8 +23,8 @@
 - [e-stat database 検索ページ](https://www.e-stat.go.jp/stat-search/database)
 
 # 構成
-ネイキッドドメインをどのダッシュボードにするか未定。
-<img width="801" alt="image" src="https://github.com/naruse666/ipro-2023/assets/62323683/d5b9f965-b0f2-4a3b-8d40-ac1cdbdd0a1f">
+<img width="852" alt="image" src="https://github.com/naruse666/ipro-2023/assets/62323683/754f59f3-2ae3-4bfb-81e1-3ae70e5f493b">
+
 
 # ビルド
 各フォルダでfinchを実行する。  
