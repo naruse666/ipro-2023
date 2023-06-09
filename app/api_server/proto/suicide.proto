@@ -10,12 +10,28 @@ service SuicideService {
 
 message Request {
   string request = 1;
-  }
+}
 
 message Response {
   Suicide suicide = 1;
-  }
+}
 
 message Suicide {
-  string latest = 1;
-  }
+  Stat latest = 1;
+ }
+
+message Stat {
+	message GetStatsData {
+		message StatisticalData {
+			message DataInf {
+				repeated Value value = 1;
+			} 
+		} 
+	} 
+}
+
+message Value {
+  string time = 1;
+  string unit = 2;
+  string v= 3;
+}

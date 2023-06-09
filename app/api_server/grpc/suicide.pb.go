@@ -119,7 +119,7 @@ type Suicide struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Latest string `protobuf:"bytes,1,opt,name=latest,proto3" json:"latest,omitempty"`
+	Latest *Stat `protobuf:"bytes,1,opt,name=latest,proto3" json:"latest,omitempty"`
 }
 
 func (x *Suicide) Reset() {
@@ -154,11 +154,235 @@ func (*Suicide) Descriptor() ([]byte, []int) {
 	return file_proto_suicide_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Suicide) GetLatest() string {
+func (x *Suicide) GetLatest() *Stat {
 	if x != nil {
 		return x.Latest
 	}
+	return nil
+}
+
+type Stat struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *Stat) Reset() {
+	*x = Stat{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_suicide_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Stat) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Stat) ProtoMessage() {}
+
+func (x *Stat) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_suicide_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Stat.ProtoReflect.Descriptor instead.
+func (*Stat) Descriptor() ([]byte, []int) {
+	return file_proto_suicide_proto_rawDescGZIP(), []int{3}
+}
+
+type Value struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Time string `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
+	Unit string `protobuf:"bytes,2,opt,name=unit,proto3" json:"unit,omitempty"`
+	V    string `protobuf:"bytes,3,opt,name=v,proto3" json:"v,omitempty"`
+}
+
+func (x *Value) Reset() {
+	*x = Value{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_suicide_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Value) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Value) ProtoMessage() {}
+
+func (x *Value) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_suicide_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Value.ProtoReflect.Descriptor instead.
+func (*Value) Descriptor() ([]byte, []int) {
+	return file_proto_suicide_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *Value) GetTime() string {
+	if x != nil {
+		return x.Time
+	}
 	return ""
+}
+
+func (x *Value) GetUnit() string {
+	if x != nil {
+		return x.Unit
+	}
+	return ""
+}
+
+func (x *Value) GetV() string {
+	if x != nil {
+		return x.V
+	}
+	return ""
+}
+
+type Stat_GetStatsData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *Stat_GetStatsData) Reset() {
+	*x = Stat_GetStatsData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_suicide_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Stat_GetStatsData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Stat_GetStatsData) ProtoMessage() {}
+
+func (x *Stat_GetStatsData) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_suicide_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Stat_GetStatsData.ProtoReflect.Descriptor instead.
+func (*Stat_GetStatsData) Descriptor() ([]byte, []int) {
+	return file_proto_suicide_proto_rawDescGZIP(), []int{3, 0}
+}
+
+type Stat_GetStatsData_StatisticalData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *Stat_GetStatsData_StatisticalData) Reset() {
+	*x = Stat_GetStatsData_StatisticalData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_suicide_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Stat_GetStatsData_StatisticalData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Stat_GetStatsData_StatisticalData) ProtoMessage() {}
+
+func (x *Stat_GetStatsData_StatisticalData) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_suicide_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Stat_GetStatsData_StatisticalData.ProtoReflect.Descriptor instead.
+func (*Stat_GetStatsData_StatisticalData) Descriptor() ([]byte, []int) {
+	return file_proto_suicide_proto_rawDescGZIP(), []int{3, 0, 0}
+}
+
+type Stat_GetStatsData_StatisticalData_DataInf struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Value []*Value `protobuf:"bytes,1,rep,name=value,proto3" json:"value,omitempty"`
+}
+
+func (x *Stat_GetStatsData_StatisticalData_DataInf) Reset() {
+	*x = Stat_GetStatsData_StatisticalData_DataInf{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_suicide_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Stat_GetStatsData_StatisticalData_DataInf) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Stat_GetStatsData_StatisticalData_DataInf) ProtoMessage() {}
+
+func (x *Stat_GetStatsData_StatisticalData_DataInf) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_suicide_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Stat_GetStatsData_StatisticalData_DataInf.ProtoReflect.Descriptor instead.
+func (*Stat_GetStatsData_StatisticalData_DataInf) Descriptor() ([]byte, []int) {
+	return file_proto_suicide_proto_rawDescGZIP(), []int{3, 0, 0, 0}
+}
+
+func (x *Stat_GetStatsData_StatisticalData_DataInf) GetValue() []*Value {
+	if x != nil {
+		return x.Value
+	}
+	return nil
 }
 
 var File_proto_suicide_proto protoreflect.FileDescriptor
@@ -171,14 +395,25 @@ var file_proto_suicide_proto_rawDesc = []byte{
 	0x22, 0x33, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x07,
 	0x73, 0x75, 0x69, 0x63, 0x69, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e,
 	0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x75, 0x69, 0x63, 0x69, 0x64, 0x65, 0x52, 0x07, 0x73, 0x75,
-	0x69, 0x63, 0x69, 0x64, 0x65, 0x22, 0x21, 0x0a, 0x07, 0x53, 0x75, 0x69, 0x63, 0x69, 0x64, 0x65,
-	0x12, 0x16, 0x0a, 0x06, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x06, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x32, 0x41, 0x0a, 0x0e, 0x53, 0x75, 0x69, 0x63,
-	0x69, 0x64, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2f, 0x0a, 0x0e, 0x53, 0x75,
-	0x69, 0x63, 0x69, 0x64, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0d, 0x2e, 0x6d,
-	0x61, 0x69, 0x6e, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x0e, 0x2e, 0x6d, 0x61,
-	0x69, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x08, 0x5a, 0x06, 0x2e,
-	0x2f, 0x67, 0x72, 0x70, 0x63, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x69, 0x63, 0x69, 0x64, 0x65, 0x22, 0x2d, 0x0a, 0x07, 0x53, 0x75, 0x69, 0x63, 0x69, 0x64, 0x65,
+	0x12, 0x22, 0x0a, 0x06, 0x6c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x0a, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x52, 0x06, 0x6c, 0x61,
+	0x74, 0x65, 0x73, 0x74, 0x22, 0x57, 0x0a, 0x04, 0x53, 0x74, 0x61, 0x74, 0x1a, 0x4f, 0x0a, 0x0c,
+	0x47, 0x65, 0x74, 0x53, 0x74, 0x61, 0x74, 0x73, 0x44, 0x61, 0x74, 0x61, 0x1a, 0x3f, 0x0a, 0x0f,
+	0x53, 0x74, 0x61, 0x74, 0x69, 0x73, 0x74, 0x69, 0x63, 0x61, 0x6c, 0x44, 0x61, 0x74, 0x61, 0x1a,
+	0x2c, 0x0a, 0x07, 0x44, 0x61, 0x74, 0x61, 0x49, 0x6e, 0x66, 0x12, 0x21, 0x0a, 0x05, 0x76, 0x61,
+	0x6c, 0x75, 0x65, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x6d, 0x61, 0x69, 0x6e,
+	0x2e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0x3d, 0x0a,
+	0x05, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x69, 0x6d, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x75, 0x6e,
+	0x69, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x75, 0x6e, 0x69, 0x74, 0x12, 0x0c,
+	0x0a, 0x01, 0x76, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x01, 0x76, 0x32, 0x41, 0x0a, 0x0e,
+	0x53, 0x75, 0x69, 0x63, 0x69, 0x64, 0x65, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2f,
+	0x0a, 0x0e, 0x53, 0x75, 0x69, 0x63, 0x69, 0x64, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x0d, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x0e, 0x2e, 0x6d, 0x61, 0x69, 0x6e, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42,
+	0x08, 0x5a, 0x06, 0x2e, 0x2f, 0x67, 0x72, 0x70, 0x63, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -193,21 +428,28 @@ func file_proto_suicide_proto_rawDescGZIP() []byte {
 	return file_proto_suicide_proto_rawDescData
 }
 
-var file_proto_suicide_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_proto_suicide_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_proto_suicide_proto_goTypes = []interface{}{
-	(*Request)(nil),  // 0: main.Request
-	(*Response)(nil), // 1: main.Response
-	(*Suicide)(nil),  // 2: main.Suicide
+	(*Request)(nil),           // 0: main.Request
+	(*Response)(nil),          // 1: main.Response
+	(*Suicide)(nil),           // 2: main.Suicide
+	(*Stat)(nil),              // 3: main.Stat
+	(*Value)(nil),             // 4: main.Value
+	(*Stat_GetStatsData)(nil), // 5: main.Stat.GetStatsData
+	(*Stat_GetStatsData_StatisticalData)(nil),         // 6: main.Stat.GetStatsData.StatisticalData
+	(*Stat_GetStatsData_StatisticalData_DataInf)(nil), // 7: main.Stat.GetStatsData.StatisticalData.DataInf
 }
 var file_proto_suicide_proto_depIdxs = []int32{
 	2, // 0: main.Response.suicide:type_name -> main.Suicide
-	0, // 1: main.SuicideService.SuicideRequest:input_type -> main.Request
-	1, // 2: main.SuicideService.SuicideRequest:output_type -> main.Response
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	3, // 1: main.Suicide.latest:type_name -> main.Stat
+	4, // 2: main.Stat.GetStatsData.StatisticalData.DataInf.value:type_name -> main.Value
+	0, // 3: main.SuicideService.SuicideRequest:input_type -> main.Request
+	1, // 4: main.SuicideService.SuicideRequest:output_type -> main.Response
+	4, // [4:5] is the sub-list for method output_type
+	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_proto_suicide_proto_init() }
@@ -252,6 +494,66 @@ func file_proto_suicide_proto_init() {
 				return nil
 			}
 		}
+		file_proto_suicide_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Stat); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_suicide_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Value); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_suicide_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Stat_GetStatsData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_suicide_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Stat_GetStatsData_StatisticalData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_suicide_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Stat_GetStatsData_StatisticalData_DataInf); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -259,7 +561,7 @@ func file_proto_suicide_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_suicide_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
