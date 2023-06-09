@@ -21,14 +21,20 @@ message Suicide {
  }
 
 message Stat {
-	message GetStatsData {
-		message StatisticalData {
-			message DataInf {
-				repeated Value value = 1;
-			} 
-		} 
-	} 
+  GetStatsData getStatsData = 1;
 }
+
+message GetStatsData {
+  StatisticalData statisticalData = 1;
+} 
+
+message StatisticalData {
+	DataInf dataInf = 1;
+} 
+
+message DataInf {
+	repeated Value value = 1;
+} 
 
 message Value {
   string time = 1;
