@@ -13,7 +13,7 @@ message Request {
 }
 
 message Response {
-  Suicide suicide = 1;
+  bytes suicide = 1;
 }
 
 message Suicide {
