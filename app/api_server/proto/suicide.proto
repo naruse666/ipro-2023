@@ -5,39 +5,31 @@ option go_package = "./grpc";
 package main;
 
 service SuicideService {
-  rpc SuicideRequest (Request) returns (Response);
+  rpc SuicideRequest (Request) returns (Suicide);
 }
 
 message Request {
   string request = 1;
 }
 
-message Response {
-  bytes suicide = 1;
-}
-
 message Suicide {
-  Stat latest = 1;
+  GetStatsData getStatsData = 1 [json_name = "GET_STATS_DATA"];
  }
 
-message Stat {
-  GetStatsData getStatsData = 1;
-}
-
 message GetStatsData {
-  StatisticalData statisticalData = 1;
+  StatisticalData statisticalData = 1 [json_name = "STATISTICAL_DATA"];
 } 
 
 message StatisticalData {
-	DataInf dataInf = 1;
+	DataInf dataInf = 1 [json_name = "DATA_INF"];
 } 
 
 message DataInf {
-	repeated Value value = 1;
+	repeated Value value = 1 [json_name = "VALUE"];
 } 
 
 message Value {
-  string time = 1;
-  string unit = 2;
-  string v= 3;
+  string time = 1 [json_name = "@time"];
+  string unit = 2 [json_name = "@unit"];
+  string v= 3 [json_name = "$"];
 }
