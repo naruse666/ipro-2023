@@ -13,23 +13,23 @@ message Request {
 }
 
 message Suicide {
-  GetStatsData getStatsData = 1 [json_name = "GET_STATS_DATA"];
+  GetStatsData getStatsData = 1 ; //@gotags: json:"GET_STATS_DATA"
  }
 
 message GetStatsData {
-  StatisticalData statisticalData = 1 [json_name = "STATISTICAL_DATA"];
+  StatisticalData statisticalData = 1 ; //@gotags: json:"STATISTICAL_DATA"
 } 
 
 message StatisticalData {
-	DataInf dataInf = 1 [json_name = "DATA_INF"];
+	DataInf dataInf = 1 ; //@gotags: json:"DATA_INF"
 } 
 
 message DataInf {
-	repeated Value value = 1 [json_name = "VALUE"];
+	repeated Value value = 1 ; //@gotags: json:"VALUE"
 } 
 
 message Value {
-  string time = 1 [json_name = "@time"];
-  string unit = 2 [json_name = "@unit"];
-  string v= 3 [json_name = "$"];
+  string time = 1 ; //@gotags: json:"@time"
+  string unit = 2 ; //@gotags: json:"@unit"
+  string v= 3 ; //@gotags: json:"$"
 }
