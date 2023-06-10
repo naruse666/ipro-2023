@@ -10,6 +10,6 @@ services:
     volumes:
       - ~/.aws/:/root/.aws:ro
 networks:
-  api-server:
-    name: api-network
+  ipro2023:
+    name: ipro2023
     driver: bridge

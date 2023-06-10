@@ -17,9 +17,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-var result interface{}
-
-type Stat struct {
+type Suicide struct {
 	GetStatsData struct {
 		StatisticalData struct {
 			DataInf struct {
@@ -33,11 +31,17 @@ type Stat struct {
 	} `json:"GET_STATS_DATA"`
 }
 
-type server struct {
-	pb.UnimplementedSuicideServiceServer
+func main() {
+	lis, err := net.Listen("tcp", ":8010")
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	s := grpc.NewServer()
+	pb.RegisterSuicideServiceServer(s, &Suicide{})
+	s.Serve(lis)
 }
 
-func main() {
+func (s *Suicide) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Suicide, error) {
 
 	appId := os.Getenv("ESTATAPPID")
 
@@ -62,28 +66,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	var response *pb.Suicide
 
-	var data Stat
-
-	if err := json.Unmarshal(body, &data); err != nil {
+	if err := json.Unmarshal(body, &response); err != nil {
 		fmt.Println(err)
 	}
-	// メモリでデータを共有(ごめんなさい)
-	result = data.GetStatsData.StatisticalData.DataInf.Value[0].V
-	fmt.Println(result)
-
-	lis, err := net.Listen("tcp", ":8010")
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	s := grpc.NewServer()
-	pb.RegisterSuicideServiceServer(s, &server{})
-	s.Serve(lis)
-}
-
-func (s *server) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Response, error) {
-	result := &pb.Suicide{
-		Latest: result.(string),
-	}
-	return &pb.Response{Suicide: result}, nil
+	
+	return response, nil
 }

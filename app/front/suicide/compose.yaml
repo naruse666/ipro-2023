@@ -1,0 +1,10 @@
+version: "3.9"
+services: 
+  suicide:
+    build: .
+    ports: 
+      - "8020:8020"
+networks:
+  ipro2023:
+    name: ipro2023
+    driver: bridge
