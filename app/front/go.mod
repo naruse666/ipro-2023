@@ -6,7 +6,7 @@ require google.golang.org/grpc v1.55.0
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/naruse666/ipro-2023/app/api_server v0.0.0-20230610022357-eaf98ab19779
+	github.com/naruse666/ipro-2023/app/api_server 
 )
 
 require (
