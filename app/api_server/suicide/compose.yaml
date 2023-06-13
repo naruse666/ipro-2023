@@ -1,14 +1,11 @@
 version: "3.9"
 services: 
-  api-server:
+  suicide-server:
     build: .
     ports: 
       - "8010:8010"
     env_file:
       - .env
-# これいる？？　parameter storeのゴミ？
-    volumes:
-      - ~/.aws/:/root/.aws:ro
 networks:
   ipro2023:
     name: ipro2023

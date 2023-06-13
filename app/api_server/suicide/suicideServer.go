@@ -32,6 +32,8 @@ type Suicide struct {
 }
 
 func main() {
+
+
 	lis, err := net.Listen("tcp", ":8010")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -42,7 +44,6 @@ func main() {
 }
 
 func (s *Suicide) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Suicide, error) {
-
 	appId := os.Getenv("ESTATAPPID")
 
 	client := &http.Client{}
@@ -52,6 +53,9 @@ func (s *Suicide) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Suici
 
 	resp, err := client.Get(url)
 	// エラー処理
+	if err != nil {
+		log.Fatalf("failed to request: %v", err)
+	}
 
 	req, err := http.NewRequest("GET", url, nil)
 	// エラー処理
@@ -66,6 +70,7 @@ func (s *Suicide) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Suici
 	if err != nil {
 		panic(err)
 	}
+
 	var response *pb.Suicide
 
 	if err := json.Unmarshal(body, &response); err != nil {

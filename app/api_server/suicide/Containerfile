@@ -12,13 +12,11 @@ ENV GO_ENV=dev
 COPY go.sum go.mod ./
 
 RUN go mod download
-#RUN go get -u google.golang.org/grpc@v1.55.0
-#RUN export PATH="$PATH:$(go env GOPATH)/bin"
 
 COPY . ./
 
-RUN go build -o /app/ipro_api
+RUN go build -o /app/suicideServer
 
 EXPOSE 8010
 
-CMD [ "/app/ipro_api" ]
+CMD [ "/app/suicideServer" ]
