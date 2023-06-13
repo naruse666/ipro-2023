@@ -1,12 +1,9 @@
 package main
 
 import ( 
-	"context"
 	"os"
 
 	"github.com/gin-gonic/gin"
-	pb "github.com/naruse666/ipro-2023/app/api_server/grpc"
-	"google.golang.org/grpc"
 )
 
 
@@ -18,15 +15,13 @@ func main() {
 		env = "dev"
 	}
 
-
-	// r include data
-	data := r.GetStatsData.StatisticalData.DataInf.Value[0]
-
 	//
 	// html render
 	//
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
-	router.GET("/", suicideRequest())
+	router.GET("/", func (c *gin.Context) {
+		suicideRequest(hosts.SuicideHost, c)
+	})
 	router.Run(":8020")
 }

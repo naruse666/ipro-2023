@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
@@ -32,11 +31,9 @@ type Suicide struct {
 }
 
 func main() {
-
-
 	lis, err := net.Listen("tcp", ":8010")
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		log.Fatalf("Failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
 	pb.RegisterSuicideServiceServer(s, &Suicide{})
@@ -52,21 +49,24 @@ func (s *Suicide) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Suici
 	url := "http://api.e-stat.go.jp/rest/3.0/app/json/getStatsData?appId=" + appId + params
 
 	resp, err := client.Get(url)
-	// エラー処理
 	if err != nil {
-		log.Fatalf("failed to request: %v", err)
+		log.Fatalf("Failed to get: %v", err)
 	}
 
 	req, err := http.NewRequest("GET", url, nil)
-	// エラー処理
+	if err != nil {
+		log.Fatalf("Failed to new request: %v", err)
+	}
+
 	req.Header.Set("accept", "application/json")
 
 	resp, err = client.Do(req)
-	// エラー処理
+	if err != nil {
+		log.Fatalf("Failed to request: %v", err)
+	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
-
 	if err != nil {
 		panic(err)
 	}
@@ -74,7 +74,7 @@ func (s *Suicide) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Suici
 	var response *pb.Suicide
 
 	if err := json.Unmarshal(body, &response); err != nil {
-		fmt.Println(err)
+		log.Fatalf("Failed to unmarshal: %v", err)
 	}
 	
 	return response, nil

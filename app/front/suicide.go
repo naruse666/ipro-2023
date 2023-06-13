@@ -1,16 +1,19 @@
 package main
 
 import (
+	"context"
 	"time"
 	"log"
 	"net/http"
 
+	pb "github.com/naruse666/ipro-2023/app/api_server/grpc"
+	"google.golang.org/grpc"
   "github.com/gin-gonic/gin"
 )
 
-func suicideRequest(c *gin.Context) {
+func suicideRequest(host string, gctx *gin.Context) {
 	// request to suicide grpc
-	conn, err := grpc.Dial(hosts.SuicideHost + ":8010", grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(host + ":8010", grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -24,7 +27,9 @@ func suicideRequest(c *gin.Context) {
 		log.Fatalf("could not greet: %v", err)
 	}
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+	data := r.GetStatsData.StatisticalData.DataInf.Value[0]
+
+	gctx.HTML(http.StatusOK, "home.tmpl", gin.H{
 		"title": "Main website",
 		"time":  data.Time[:4],
 		"value": data.V,
