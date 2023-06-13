@@ -3,7 +3,7 @@ module github.com/naruse666/ipro-2023/app/api_server/suicide
 go 1.20
 
 require (
-	github.com/naruse666/ipro-2023/app/api_server 
+	github.com/naruse666/ipro-2023/app/api_server 57ae706
 	google.golang.org/grpc v1.55.0
 )
 
