@@ -30,7 +30,7 @@ func suicideRequest(host string, gctx *gin.Context) {
 	data := r.GetStatsData.StatisticalData.DataInf.Value[0]
 
 	gctx.HTML(http.StatusOK, "home.tmpl", gin.H{
-		"title": "Main website",
+		"title": "Suicide Dashboard",
 		"time":  data.Time[:4],
 		"value": data.V,
 		"unit":  data.Unit,
