@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net"
@@ -17,9 +16,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-var result interface{}
-
-type Stat struct {
+type Suicide struct {
 	GetStatsData struct {
 		StatisticalData struct {
 			DataInf struct {
@@ -33,12 +30,17 @@ type Stat struct {
 	} `json:"GET_STATS_DATA"`
 }
 
-type server struct {
-	pb.UnimplementedSuicideServiceServer
+func main() {
+	lis, err := net.Listen("tcp", ":8010")
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
+	s := grpc.NewServer()
+	pb.RegisterSuicideServiceServer(s, &Suicide{})
+	s.Serve(lis)
 }
 
-func main() {
-
+func (s *Suicide) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Suicide, error) {
 	appId := os.Getenv("ESTATAPPID")
 
 	client := &http.Client{}
@@ -47,43 +49,33 @@ func main() {
 	url := "http://api.e-stat.go.jp/rest/3.0/app/json/getStatsData?appId=" + appId + params
 
 	resp, err := client.Get(url)
-	// エラー処理
+	if err != nil {
+		log.Fatalf("Failed to get: %v", err)
+	}
 
 	req, err := http.NewRequest("GET", url, nil)
-	// エラー処理
+	if err != nil {
+		log.Fatalf("Failed to new request: %v", err)
+	}
+
 	req.Header.Set("accept", "application/json")
 
 	resp, err = client.Do(req)
-	// エラー処理
+	if err != nil {
+		log.Fatalf("Failed to request: %v", err)
+	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
-
 	if err != nil {
 		panic(err)
 	}
 
-	var data Stat
+	var response *pb.Suicide
 
-	if err := json.Unmarshal(body, &data); err != nil {
-		fmt.Println(err)
+	if err := json.Unmarshal(body, &response); err != nil {
+		log.Fatalf("Failed to unmarshal: %v", err)
 	}
-	// メモリでデータを共有(ごめんなさい)
-	result = data.GetStatsData.StatisticalData.DataInf.Value[0].V
-	fmt.Println(result)
-
-	lis, err := net.Listen("tcp", ":8010")
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	s := grpc.NewServer()
-	pb.RegisterSuicideServiceServer(s, &server{})
-	s.Serve(lis)
-}
-
-func (s *server) SuicideRequest(ctx context.Context, in *pb.Request) (*pb.Response, error) {
-	result := &pb.Suicide{
-		Latest: result.(string),
-	}
-	return &pb.Response{Suicide: result}, nil
+	
+	return response, nil
 }

@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SuicideServiceClient interface {
-	SuicideRequest(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+	SuicideRequest(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Suicide, error)
 }
 
 type suicideServiceClient struct {
@@ -37,8 +37,8 @@ func NewSuicideServiceClient(cc grpc.ClientConnInterface) SuicideServiceClient {
 	return &suicideServiceClient{cc}
 }
 
-func (c *suicideServiceClient) SuicideRequest(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
+func (c *suicideServiceClient) SuicideRequest(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Suicide, error) {
+	out := new(Suicide)
 	err := c.cc.Invoke(ctx, SuicideService_SuicideRequest_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -50,14 +50,14 @@ func (c *suicideServiceClient) SuicideRequest(ctx context.Context, in *Request, 
 // All implementations should embed UnimplementedSuicideServiceServer
 // for forward compatibility
 type SuicideServiceServer interface {
-	SuicideRequest(context.Context, *Request) (*Response, error)
+	SuicideRequest(context.Context, *Request) (*Suicide, error)
 }
 
 // UnimplementedSuicideServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedSuicideServiceServer struct {
 }
 
-func (UnimplementedSuicideServiceServer) SuicideRequest(context.Context, *Request) (*Response, error) {
+func (UnimplementedSuicideServiceServer) SuicideRequest(context.Context, *Request) (*Suicide, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SuicideRequest not implemented")
 }
 

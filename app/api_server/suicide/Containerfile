@@ -1,0 +1,22 @@
+# syntax=docker/dockerfile:1
+FROM golang:1.20.4
+
+RUN groupadd -r app \
+  && useradd -r -g app -d /app app
+RUN mkdir /app && chown app:app /app
+WORKDIR /app
+USER app
+
+ENV GO_ENV=dev
+
+COPY go.sum go.mod ./
+
+RUN go mod download
+
+COPY . ./
+
+RUN go build -o /app/suicideServer
+
+EXPOSE 8010
+
+CMD [ "/app/suicideServer" ]
