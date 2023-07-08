@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "cluster" {
-  name     = var.cluster-name
+  name     = "${var.cluster-name}-eks-cluster"
   version  = var.k8s_version
   role_arn = aws_iam_role.cluster.arn
 
@@ -7,7 +7,7 @@ resource "aws_eks_cluster" "cluster" {
     subnet_ids              = var.subnet_ids
     endpoint_private_access = false
     endpoint_public_access  = true
-    security_group_ids      = var.security_group_ids
+    security_group_ids      = [aws_security_group.control_plane.id]
   }
 
   encryption_config {
