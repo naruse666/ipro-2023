@@ -8,7 +8,7 @@ output "cluster" {
   value = {
     name     = aws_eks_cluster.cluster.name
     endpoint = aws_eks_cluster.cluster.endpoint
-    token    = aws_eks_cluster.cluster.token
+    token    = data.aws_eks_cluster_auth.cluster_auth.token
     ca       = base64decode(aws_eks_cluster.cluster.certificate_authority[0].data)
   }
 }
