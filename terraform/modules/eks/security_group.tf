@@ -36,3 +36,9 @@ resource "aws_security_group_rule" "node_to_default_cluster" {
   to_port   = 65535
   protocol  = "-1"
 }
+
+resource "aws_security_group" "control_plane" {
+  name        = "${var.cluster-name}-eks-control-plane"
+  description = "${var.cluster-name}-eks-control-plane"
+  vpc_id      = var.vpc_id
+}
