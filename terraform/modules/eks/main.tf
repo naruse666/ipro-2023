@@ -24,3 +24,7 @@ resource "aws_eks_cluster" "cluster" {
     aws_iam_role_policy_attachment.AmazonEKSVPCResourceController,
   ]
 }
+
+data "aws_eks_cluster_auth" "cluster_auth" {
+  name = "${var.cluster-name}-eks-cluster"
+}

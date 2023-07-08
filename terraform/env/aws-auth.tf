@@ -1,8 +1,9 @@
 provider "kubernetes" {
-  host                   = module.eks.endpoint
-  cluster_ca_certificate = base64decode(module.eks.ca)
-  token                  = module.eks.token
+  host                   = module.eks.cluster.endpoint
+  cluster_ca_certificate = module.eks.cluster.ca
+  token                  = module.eks.cluster.token
 }
+
 
 resource "kubernetes_config_map" "aws_auth" {
   metadata {
