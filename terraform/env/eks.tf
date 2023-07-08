@@ -18,7 +18,7 @@ module "cluster_encription_key" {
 }
 
 resource "aws_eks_fargate_profile" "kube-system_eks_node" {
-  cluster_name           = module.eks.name
+  cluster_name           = module.eks.cluster.name
   fargate_profile_name   = "${local.name}-kube-system-fargate-profile"
   pod_execution_role_arn = module.eks.role.pod_execution_role_arn
   subnet_ids             = module.vpc.private_subnets
@@ -29,7 +29,7 @@ resource "aws_eks_fargate_profile" "kube-system_eks_node" {
 }
 
 resource "aws_eks_fargate_profile" "app_eks_node" {
-  cluster_name           = module.eks.name
+  cluster_name           = module.eks.cluster.name
   fargate_profile_name   = "${local.name}-app-fargate-profile"
   pod_execution_role_arn = module.eks.role.pod_execution_role_arn
   subnet_ids             = module.vpc.private_subnets
