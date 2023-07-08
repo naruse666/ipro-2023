@@ -67,3 +67,35 @@ resource "kubernetes_cluster_role_binding" "aws-auth" {
     name      = "eks-console-dashboard-full-access-clusterrole"
   }
 }
+
+# Validation webhook
+resource "kubernetes_validating_webhook_configuration_v1" "aws-auth" {
+  metadata {
+    name = "eks-aws-auth-configmap-validation-webhook"
+  }
+
+  webhook {
+    name = "eks-aws-auth-configmap-validation-webhook.amazonaws.com"
+
+    admission_review_versions = ["v1"]
+
+    client_config {
+      ca_bundle = module.eks.cluster.ca
+      url = "https://127.0.0.1:21375/validate"
+    }
+
+    rule {
+      api_groups   = [""]
+      api_versions = ["v1"]
+      operations   = ["UPDATE"]
+      resources    = ["configmaps"]
+      scope        = "*"
+    }
+
+    namespace_selector  {
+      match_labels = {"kubernetes.io/metadata.name" = "kube-system"}
+    }
+
+    side_effects = "None"
+  }
+}
