@@ -4,6 +4,28 @@ provider "kubernetes" {
   token                  = module.eks.cluster.token
 }
 
+resource "null_resource" "patch-coredns"{
+  triggers = {
+    endpoint = module.eks.cluster.endpoint
+    ca_crt   = module.eks.cluster.ca
+    token    = module.eks.cluster.token
+  }
+
+  provisioner "local-exec" {
+    command = <<EOH
+cat >/tmp/ca.crt <<EOF
+${module.eks.cluster.ca}
+EOF
+kubectl patch deployment coredns \
+  --server="${module.eks.cluster.endpoint}" \
+  --certificate_authority=/tmp/ca.crt \
+  --token="${module.eks.cluster.token}" \
+  -n kube-system \
+  --type json \
+  -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/eks.amazonaws.com~1compute-type"}]'
+EOH
+  }
+}
 
 resource "kubernetes_config_map" "aws_auth" {
   metadata {
@@ -12,45 +34,42 @@ resource "kubernetes_config_map" "aws_auth" {
   }
 
   data = {
-    "mapUsers" = <<EOT
-- userarn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/cli-user"
-  username: admin
-  groups:
-    - system:bootstrappers
-    - system:nodes
-    - eks-console-dashboard-full-access-binding"
-- userarn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/naruse"
-  username: admin
-  groups:
-    - system:bootstrappers
-    - system:nodes
-    - eks-console-dashboard-full-access-binding"
-EOT
+    "mapRoles" = templatefile("${path.module}/configmaps/map-roles.yaml.tpl", {
+      pod-role = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ipro-2023-pod-execution-role"
+    })
+
+    "mapUsers" = templatefile("${path.module}/configmaps/map-users.yaml.tpl", {
+      naruse = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/naruse",
+      admin  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/cli-user"
+    })
+
+    "mapAccounts" = templatefile("${path.module}/configmaps/map-account.yaml.tpl", {
+      account_id = "${data.aws_caller_identity.current.account_id}"
+    })
   }
 }
 
-# Role binding
-resource "kubernetes_role_binding" "aws-auth" {
+# Cluster Role
+resource "kubernetes_cluster_role" "viewer" {
   metadata {
-    name      = "eks-console-dashboard-restricted-access-role-binding"
-    namespace = "default"
+    name = "ViewerClusterRole"
   }
 
-  role_ref {
-    kind      = "Role"
-    api_group = "rbac.authorization.k8s.io"
-    name      = "eks-console-dashboard-restricted-access-role"
+  rule {
+    api_groups = [""]
+    resources  = ["nodes", "services", "namespaces", "pods", "endpoints", "persistentvolumeclaims", "persistentvolumes"]
+    verbs      = ["get", "list", "watch"]
   }
 
-  subject {
-    kind      = "Group"
-    api_group = "rbac.authorization.k8s.io"
-    name      = "eks-console-dashboard-restricted-access-group"
+  rule {
+    api_groups = ["apps"]
+    resources  = ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs      = ["get", "list", "watch"]
   }
 }
 
 # Cluster Role Binding
-resource "kubernetes_cluster_role_binding" "aws-auth" {
+resource "kubernetes_cluster_role_binding" "viewer" {
   metadata {
     name = "eks-console-dashboard-full-access-binding"
   }
@@ -64,38 +83,6 @@ resource "kubernetes_cluster_role_binding" "aws-auth" {
   role_ref {
     kind      = "ClusterRole"
     api_group = "rbac.authorization.k8s.io"
-    name      = "eks-console-dashboard-full-access-clusterrole"
-  }
-}
-
-# Validation webhook
-resource "kubernetes_validating_webhook_configuration_v1" "aws-auth" {
-  metadata {
-    name = "eks-aws-auth-configmap-validation-webhook"
-  }
-
-  webhook {
-    name = "eks-aws-auth-configmap-validation-webhook.amazonaws.com"
-
-    admission_review_versions = ["v1"]
-
-    client_config {
-      ca_bundle = module.eks.cluster.ca
-      url = "https://127.0.0.1:21375/validate"
-    }
-
-    rule {
-      api_groups   = [""]
-      api_versions = ["v1"]
-      operations   = ["UPDATE"]
-      resources    = ["configmaps"]
-      scope        = "*"
-    }
-
-    namespace_selector  {
-      match_labels = {"kubernetes.io/metadata.name" = "kube-system"}
-    }
-
-    side_effects = "None"
+    name      = "ViewerClusterRole"
   }
 }
