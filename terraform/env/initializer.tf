@@ -18,7 +18,10 @@ kubectl patch deployment coredns \
   --type json \
   -p='[{"op": "remove", "path": "/spec/template/metadata/annotations/eks.amazonaws.com~1compute-type"}]';
 
-kubectl rollout restart -n kube-system deployment coredns;
+kubectl rollout restart -n kube-system deployment coredns \
+  --server="${module.eks.cluster.endpoint}" \
+  --certificate_authority=/tmp/ca.crt \
+  --token="${module.eks.cluster.token}";
 EOH
   }
 }
