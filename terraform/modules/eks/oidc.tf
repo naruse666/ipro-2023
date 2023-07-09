@@ -1,11 +1,13 @@
-data "tls_certificate" "cluster" {
-  url = aws_eks_cluster.cluster.identity[0].oidc[0].issuer
+data "http" "cluster_oidc" {
+  url = "${aws_eks_cluster.cluster.identity.0.oidc.0.issuer}/.well-known/openid-configuration"
 }
-
+data "tls_certificate" "cluster_oidc" {
+  url = jsondecode(data.http.cluster_oidc.response_body).jwks_uri
+}
 resource "aws_iam_openid_connect_provider" "cluster" {
   client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = data.tls_certificate.cluster.certificates[*].sha1_fingerprint
-  url             = data.tls_certificate.cluster.url
+  thumbprint_list = [data.tls_certificate.cluster_oidc.certificates[0].sha1_fingerprint]
+  url             = aws_eks_cluster.cluster.identity[0].oidc[0].issuer
 }
 
 data "aws_iam_policy_document" "assume_role_policy" {
