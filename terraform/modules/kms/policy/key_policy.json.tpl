@@ -22,6 +22,7 @@
       "kms:Get*",
       "kms:ListResourceTags",
       "kms:PutKeyPolicy"
+      "kms:ListResourceTags"
       ], 
       "Resource": "*"
     }
