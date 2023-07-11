@@ -19,7 +19,8 @@
        },
       "Action": [
       "kms:DescribeKey",
-      "kms:Get*"
+      "kms:Get*",
+      "kms:ListResourceTags"
       ], 
       "Resource": "*"
     }
