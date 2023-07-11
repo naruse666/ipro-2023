@@ -14,7 +14,7 @@ module "cluster_encription_key" {
   sid                  = "EKS Cluster Encription Key"
   key_policy_action    = "kms:*"
   key_policy_resource  = "*"
-  key_policy_principal = data.aws_caller_identity.current.arn
+  key_policy_principal = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
 }
 
 resource "aws_eks_fargate_profile" "kube-system_eks_node" {
