@@ -18,7 +18,8 @@
         "AWS": "${github_actions_role}" 
        },
       "Action": [
-      "kms:DescribeKey"
+      "kms:DescribeKey",
+      "kms:Get*"
       ], 
       "Resource": "*"
     }
