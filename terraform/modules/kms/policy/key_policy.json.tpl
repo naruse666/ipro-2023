@@ -20,7 +20,8 @@
       "Action": [
       "kms:DescribeKey",
       "kms:Get*",
-      "kms:ListResourceTags"
+      "kms:ListResourceTags",
+      "kms:PutKeyPolicy"
       ], 
       "Resource": "*"
     }
