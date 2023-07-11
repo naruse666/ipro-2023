@@ -10,6 +10,17 @@
 
       "Resource": "${resource}",
       "Sid": "${sid}"
+    },
+    {
+      "Sid": "Allow use by github actioins",
+      "Effect": "Allow",
+      "Principal": { 
+        "AWS": "${github_actions_role}" 
+       },
+      "Action": [
+      "kms:DescribeKey"
+      ], 
+      "Resource": "*"
     }
   ]
 }
