@@ -1,15 +1,15 @@
 {
-    Statement = [
-      {
-        Action = "${action}"
-        Effect = "Allow"
-        Principal = {
-          "AWS" = ${principal}"
-          }
-
-        Resource = "${resource}"
-        Sid      = "${sid}"
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "${action}",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "${principal}"
       },
-    ]
-    Version = "2012-10-17"
+
+      "Resource": "${resource}",
+      "Sid": "${sid}"
+    }
+  ]
 }

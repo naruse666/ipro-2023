@@ -4,12 +4,10 @@ resource "aws_kms_key" "key" {
 
 resource "aws_kms_key_policy" "key_policy" {
   key_id = aws_kms_key.key.id
-  policy = jsonencode(
-    templatefile("${path.module}/policy/key_policy.json.tpl", {
-      sid       = var.sid
-      action    = var.key_policy_action,
-      resource  = var.key_policy_resource,
-      principal = var.key_policy_principal
-    })
-  )
+  policy =  templatefile("${path.module}/policy/key_policy.json.tpl", {
+    sid       = var.sid
+    action    = var.key_policy_action,
+    resource  = var.key_policy_resource,
+    principal = var.key_policy_principal
+  })
 }
