@@ -6,4 +6,4 @@
 - userarn: "${admin}"
   username: admin
   groups:
-    - user
+    - system:masters
