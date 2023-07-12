@@ -99,11 +99,11 @@ resource "helm_release" "aws-load-balancer-controller" {
 
   set {
     name  = "image.repository"
-    value = "602401143452.dkr.ecr.ap-northeast-1.amazonaws.com/amazon/aws-load-balancer-controller"
+    value = "public.ecr.aws/eks/aws-load-balancer-controller"
   }
 
   set {
     name  = "image.tag"
-    value = "v2.5"
+    value = "v2.5.3"
   }
 }
