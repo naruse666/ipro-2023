@@ -14,10 +14,10 @@ provider "kubernetes" {
 
 resource "null_resource" "kubeconfig" {
   triggers = {
-    cluster_name = aws_eks_cluster.cluster.cluster_id
+    cluster_name = aws_eks_cluster.cluster.name
   }
   provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --name ${aws_eks_cluster.cluster.cluster_id} --region ap-northeast-1"
+    command = "aws eks update-kubeconfig --name ${aws_eks_cluster.cluster.name} --region ap-northeast-1"
   }
 }
 
