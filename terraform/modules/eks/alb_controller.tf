@@ -88,6 +88,11 @@ resource "helm_release" "aws-load-balancer-controller" {
   }
 
   set {
+    name  = "vpcId"
+    value = var.vpc_id
+  }
+
+  set {
     name  = "serviceAccount.create"
     value = false
   }
