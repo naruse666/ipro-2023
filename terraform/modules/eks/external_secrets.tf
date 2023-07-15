@@ -60,7 +60,7 @@ resource "aws_iam_role_policy_attachment" "external_secrets" {
 
 resource "kubernetes_service_account" "external_secrets" {
   metadata {
-    name      = "external_secrets"
+    name      = "external-secrets"
     namespace = "kube-system"
     annotations = {
       "eks.amazonaws.com/role-arn" = aws_iam_role.external_secrets.arn
