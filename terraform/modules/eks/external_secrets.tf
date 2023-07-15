@@ -74,7 +74,7 @@ resource "kubernetes_service_account" "external_secrets" {
 }
 
 resource "helm_release" "external_secrets" {
-  name       = "external_secrets"
+  name       = "external-secrets"
   repository = "https://charts.external-secrets.io"
   chart      = "external-secrets"
   version    = "0.9.1"
