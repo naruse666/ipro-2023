@@ -1,26 +1,3 @@
-provider "helm" {
-  kubernetes {
-    host = aws_eks_cluster.cluster.endpoint
-    cluster_ca_certificate = base64decode(aws_eks_cluster.cluster.certificate_authority[0].data)
-    token = data.aws_eks_cluster_auth.cluster_auth.token
-  }
-}
-
-provider "kubernetes" {
-    host = aws_eks_cluster.cluster.endpoint
-    cluster_ca_certificate = base64decode(aws_eks_cluster.cluster.certificate_authority[0].data)
-    token = data.aws_eks_cluster_auth.cluster_auth.token
-}
-
-resource "null_resource" "kubeconfig" {
-  triggers = {
-    cluster_name = aws_eks_cluster.cluster.name
-  }
-  provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --name ${aws_eks_cluster.cluster.name} --region ap-northeast-1"
-  }
-}
-
 data "aws_iam_policy_document" "alb_controller" {
   statement {
     principals {
@@ -72,15 +49,15 @@ resource "kubernetes_service_account" "aws_loadbalancer_controller" {
 }
 
 resource "helm_release" "aws-load-balancer-controller" {
-    name = "aws-load-balancer-controller"
-    repository = "https://aws.github.io/eks-charts"
-    chart = "aws-load-balancer-controller"
-    version = "1.4.2"
-    namespace = "kube-system"
-    depends_on = [
-      kubernetes_service_account.aws_loadbalancer_controller,
-      null_resource.kubeconfig
-    ]
+  name       = "aws-load-balancer-controller"
+  repository = "https://aws.github.io/eks-charts"
+  chart      = "aws-load-balancer-controller"
+  version    = "1.4.2"
+  namespace  = "kube-system"
+  depends_on = [
+    kubernetes_service_account.aws_loadbalancer_controller,
+    null_resource.kubeconfig
+  ]
 
   set {
     name  = "clusterName"

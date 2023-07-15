@@ -1,4 +1,5 @@
-resource "null_resource" "patch-coredns"{
+# corednsの更新
+resource "null_resource" "patch-coredns" {
   triggers = {
     endpoint = module.eks.cluster.endpoint
     ca_crt   = module.eks.cluster.ca
