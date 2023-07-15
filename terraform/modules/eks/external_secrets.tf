@@ -77,7 +77,7 @@ resource "helm_release" "external_secrets" {
   name       = "external_secrets"
   repository = "https://charts.external-secrets.io"
   chart      = "external-secrets/external-secrets"
-  version    = "0.9.0"
+  version    = "0.8.5"
   namespace  = "kube-system"
   depends_on = [
     kubernetes_service_account.external_secrets,
