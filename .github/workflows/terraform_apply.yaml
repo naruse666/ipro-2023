@@ -26,8 +26,6 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ap-northeast-1
-      - name: update kube config
-        run: aws eks update-kubeconfig --region ap-northeast-1 --name ipro-2023-eks-cluster
       - name: setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
