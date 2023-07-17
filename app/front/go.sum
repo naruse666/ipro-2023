@@ -44,6 +44,8 @@ github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9G
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 github.com/naruse666/ipro-2023/app/api_server v0.0.0-20230613044715-05c7318f59aa h1:nUJ5ahnnQXZDDE8BcdEKMaNb6PK+ROM+dwO6wJxnkAE=
 github.com/naruse666/ipro-2023/app/api_server v0.0.0-20230613044715-05c7318f59aa/go.mod h1:n20hPouWxBEHXz/VOJiPqmecoOZaq5iKevEyKAMA9+U=
+github.com/naruse666/ipro-2023/app/api_server v0.0.0-20230717125052-fdf147a96c3d h1:g5jRdl0wBvEv8IQC4E56IWjEURMBGOnl58SP+rFz8/I=
+github.com/naruse666/ipro-2023/app/api_server v0.0.0-20230717125052-fdf147a96c3d/go.mod h1:n20hPouWxBEHXz/VOJiPqmecoOZaq5iKevEyKAMA9+U=
 github.com/pelletier/go-toml/v2 v2.0.8 h1:0ctb6s9mE31h0/lhu+J6OPmVeDxJn+kYnJc2jZR9tGQ=
 github.com/pelletier/go-toml/v2 v2.0.8/go.mod h1:vuYfssBdrU2XDZ9bYydBu6t+6a6PYNcZljzZR9VXg+4=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

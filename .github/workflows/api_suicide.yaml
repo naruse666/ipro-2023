@@ -36,4 +36,4 @@ jobs:
       run: |
         docker build -t suicide . -f Containerfile
         docker tag suicide:latest ${{ secrets.ECR_SUICIDE_REPO }}
-        docker push ${{ secrets.ECR_SUISIDE_REPO }}
+        docker push ${{ secrets.ECR_SUICIDE_REPO }}
