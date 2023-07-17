@@ -11,7 +11,7 @@ on:
     paths:
       - 'app/api_server/suicide'
     branches:
-      - deploy/app
+      - main
 
 jobs:
   build-and-push:
@@ -34,6 +34,6 @@ jobs:
 
     - name: Build, tag, and push image to Amazon ECR
       run: |
-        docker build -t suicide .
+        docker build -t suicide . -f Containerfile
         docker tag suicide:latest ${{ secrets.ECR_SUICIDE_REPO }}
         docker push ${{ secrets.ECR_SUISIDE_REPO }}
