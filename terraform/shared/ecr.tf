@@ -1,13 +1,9 @@
-resource "aws_ecr_repository" "ipro2023" {
-  name                 = "ipro2023/suicide"
-  image_tag_mutability = "MUTABLE"
-
-  image_scanning_configuration {
-    scan_on_push = true
+locals{
+  ecr_repositories = toset([
+    aws_ecr_repository.front.name,
+    aws_ecr_repository.suicide.name
+  ])
   }
-
-  force_delete = true
-}
 
 data "aws_iam_policy_document" "ecr_policy_document" {
   statement {
@@ -38,13 +34,10 @@ data "aws_iam_policy_document" "ecr_policy_document" {
   }
 }
 
-resource "aws_ecr_repository_policy" "ecr_policy" {
-  repository = aws_ecr_repository.ipro2023.name
-  policy     = data.aws_iam_policy_document.ecr_policy_document.json
-}
-
 resource "aws_ecr_lifecycle_policy" "ecr_lifecycle" {
-  repository = aws_ecr_repository.ipro2023.name
+  for_each = local.ecr_repositories
+
+  repository = each.value
 
   policy = <<EOF
 {
@@ -81,4 +74,32 @@ resource "aws_ecr_lifecycle_policy" "ecr_lifecycle" {
   ]
 }
 EOF
+}
+
+resource "aws_ecr_repository" "suicide" {
+  name                 = "ipro2023/suicide"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  force_delete = true
+}
+
+resource "aws_ecr_repository" "front" {
+  name                 = "ipro2023/front"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  force_delete = true
+}
+
+resource "aws_ecr_repository_policy" "ecr_policy" {
+  for_each = local.ecr_repositories
+  repository = each.value
+  policy     = data.aws_iam_policy_document.ecr_policy_document.json
 }
